@@ -4,7 +4,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 import Login from '@/Login.vue'
 import Main from "@/Main.vue";
-import Top from "@/views/Top";
+import List from "@/views/todo/List";
 
 Vue.use(VueRouter)
 
@@ -14,9 +14,9 @@ const router = new VueRouter({
     { path: '/login', name: 'Login', component: Login },
     { path: '/', component: Main,
       children: [
-        { path: '/', name: 'Top', component: Top, meta: { requiresAuth: true } },
-        { path: '/archive', name: 'Archive', component: () => import('@/views/Archive'), meta: { requiresAuth: true } },
-        { path: '/user', name: 'User', component: () => import('@/views/User'), meta: { requiresAuth: true } },
+        { path: '/', name: 'List', component: List, meta: { requiresAuth: true } },
+        { path: '/detail/:id', name: 'Detail', component: () => import('@/views/todo/Detail'), meta: { requiresAuth: true } },
+        { path: '/new', name: 'New', component: () => import('@/views/todo/New'), meta: { requiresAuth: true } },
       ]
     },
   ]

@@ -2,35 +2,30 @@ import firebaseConfig from './firebaseConfig.js'
 
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
-import {connectFirestoreEmulator, getFirestore} from 'firebase/firestore/lite';
-import {
-    browserSessionPersistence,
-    connectAuthEmulator,
-    getAuth,
-    onAuthStateChanged,
-    setPersistence,
-    signInWithEmailAndPassword,
-    signOut
-} from "firebase/auth";
+import * as Firestore from 'firebase/firestore/lite';
+import * as FirestoreRealtime from 'firebase/firestore';
+import * as Auth from "firebase/auth";
 import store from '@/plugins/store'
 
 const app = initializeApp(firebaseConfig); // Initialize Firebase
 
-const db = getFirestore(app);
-const auth = getAuth();
+const db = Firestore.getFirestore(app);
+const realtime_db = FirestoreRealtime.getFirestore(app);
+const auth = Auth.getAuth(app);
 
 const hostName = document.location.hostname;
 if( hostName === "localhost" ){
-    //settingにエミュレータを利用するように記述
-    connectFirestoreEmulator(db, 'localhost', 8080);
-    connectAuthEmulator(auth, 'http://localhost:9099')
+    //エミュレータを利用するように記述
+    Firestore.connectFirestoreEmulator(db, 'localhost', 8080);
+    FirestoreRealtime.connectFirestoreEmulator(realtime_db, 'localhost', 8080);
+    Auth.connectAuthEmulator(auth, 'http://localhost:9099')
 }
 
 const login = function(email, password) {
-    return setPersistence(auth, browserSessionPersistence)
+    return Auth.setPersistence(auth, Auth.browserSessionPersistence)
         .then(() => {
             console.log("ログインしました。");
-            return signInWithEmailAndPassword(auth, email, password);
+            return Auth.signInWithEmailAndPassword(auth, email, password);
         })
         .catch((error) => {
             console.log(error);
@@ -39,7 +34,7 @@ const login = function(email, password) {
 }
 
 const logout = function() {
-    signOut(auth)
+    Auth.signOut(auth)
         .then(() => {
             console.log("ログアウトしました。");
         })
@@ -49,11 +44,12 @@ const logout = function() {
 }
 
 const onAuth = function() {
-    onAuthStateChanged(auth, (user) => {
+    Auth.onAuthStateChanged(auth, (user) => {
         store.commit('onAuthStateChanged', user);
     });
 }
 
 export default {
-    db, login, logout, onAuth
+    db, realtime_db,
+    login, logout, onAuth
 };

@@ -6,7 +6,6 @@
       <v-col cols="12" sm="4">
         <v-card :loading="loading" elevation="5">
           <v-card-title color="gray" class="text-no-wrap">
-            埠頭配信サイト
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text class="py-7">
@@ -74,7 +73,6 @@ export default {
 
       Firebase.login(this.email, this.password)
           .then(() => {
-            console.log("ログインしました。");
             let redirectPath = this.$route.query.redirect;
             if (typeof redirectPath === 'undefined') redirectPath = "/";
             this.$router.push(redirectPath);
@@ -83,7 +81,6 @@ export default {
             setTimeout(() => {
               this.loading = false;
               this.errorMessage = "メールアドレスとパスワードを確認してください";
-              console.log("ログイン失敗しました。");
             }, 1000)
           })
       .finally(() => {
