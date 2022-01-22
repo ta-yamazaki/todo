@@ -15,6 +15,11 @@
 <!--          single-line-->
 <!--          hide-details-->
 <!--      ></v-text-field>-->
+      <v-toolbar-items>
+        <v-btn text @click="doLogout">
+          ログアウト
+        </v-btn>
+      </v-toolbar-items>
     </v-app-bar>
 
 
@@ -29,14 +34,10 @@
             v-for="todo in todos.ざ"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
-            v-touch="{
-              left: () => showDeleteDialog(todo),
-              right: () => showDoneDialog(todo),
-            }"
         >
           <v-list-item-content>
             <v-list-item-title>
-              {{ todo.name }} {{ todo.status }}
+              {{ todo.name }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -49,14 +50,10 @@
             v-for="todo in todos.さ"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
-            v-touch="{
-              left: () => showDeleteDialog(todo),
-              right: () => showDoneDialog(todo),
-            }"
         >
           <v-list-item-content>
             <v-list-item-title>
-              {{ todo.name }} {{ todo.status }}
+              {{ todo.name }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -69,14 +66,10 @@
             v-for="todo in todos.未定"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
-            v-touch="{
-              left: () => showDeleteDialog(todo),
-              right: () => showDoneDialog(todo),
-            }"
         >
           <v-list-item-content>
             <v-list-item-title>
-              {{ todo.name }} {{ todo.status }}
+              {{ todo.name }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -127,6 +120,7 @@
 <script>
 import firebase from "@/firebase/firebase";
 import {collection, deleteDoc, doc, getDocs, updateDoc, query, where} from "firebase/firestore/lite";
+import Firebase from "@/firebase/firebase";
 
 export default {
   name: "List",
@@ -221,6 +215,9 @@ export default {
         this.editedIndex = -1;
       })
     },
+    doLogout() {
+      Firebase.logout();
+    }
   }
 }
 </script>

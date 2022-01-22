@@ -6,6 +6,7 @@
       <v-col cols="12" sm="4">
         <v-card :loading="loading" elevation="5">
           <v-card-title color="gray" class="text-no-wrap">
+            やることメモ
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text class="py-7">
@@ -94,12 +95,12 @@ export default {
 
 <style scoped>
 .container {
-  background-image:
-      url("https://free-materials.com/adm/wp-content/uploads/2017/05/adpDSC_2512-750x499.jpg") !important;
-  background-position: center center !important;
-  background-size: cover !important;
-  background-color: darkgray;
-  background-blend-mode: lighten;
-  overflow: hidden
+  /*background-image:*/
+  /*    url("https://free-materials.com/adm/wp-content/uploads/2017/05/adpDSC_2512-750x499.jpg") !important;*/
+  /*background-position: center center !important;*/
+  /*background-size: cover !important;*/
+  background-color: whitesmoke;
+  /*background-blend-mode: lighten;*/
+  /*overflow: hidden*/
 }
 </style>
