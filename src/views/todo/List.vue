@@ -1,27 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-app-bar app elevation="1" color="primary" dark>
-<!--      <v-toolbar-items>-->
-<!--        <v-img src="@/assets/logo.png" contain></v-img>-->
-<!--      </v-toolbar-items>-->
-      <v-toolbar-title href="/">TODO</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-<!--      <v-text-field-->
-<!--          v-model="search"-->
-<!--          append-icon="mdi-magnify"-->
-<!--          label="Search"-->
-<!--          single-line-->
-<!--          hide-details-->
-<!--      ></v-text-field>-->
-      <v-toolbar-items>
-        <v-btn text @click="doLogout">
-          ログアウト
-        </v-btn>
-      </v-toolbar-items>
-    </v-app-bar>
-
+  <v-container>
+    <header-bar v-bind:title="title"/>
 
     <v-list>
 
@@ -104,7 +83,7 @@
       </v-card>
     </v-dialog>
 
-    <v-footer fixed color="transparent" class="px-5 py-5">
+    <v-footer fixed color="transparent" class="pr-5 pb-16 mb-3">
       <v-spacer></v-spacer>
       <v-btn
           :to="{ name: 'New' }"
@@ -121,12 +100,16 @@
 import firebase from "@/firebase/firebase";
 import {collection, deleteDoc, doc, getDocs, updateDoc, query, where} from "firebase/firestore/lite";
 import Firebase from "@/firebase/firebase";
+import HeaderBar from "@/components/common/HeaderBar";
 
 export default {
   name: "List",
+  components: {
+    HeaderBar,
+  },
   data () {
     return {
-      title: '',
+      title: 'TODO',
       search: '',
       todos: {
         ざ: [],

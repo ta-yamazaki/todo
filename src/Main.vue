@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--    <header-bar @drawer-clicked='drawer = !drawer'/>-->
 
     <!--    <v-navigation-drawer app v-model="drawer">-->
     <!--      <side-navigation />-->
@@ -11,6 +10,8 @@
 
       <router-view />
     </v-main>
+
+    <footer-bar />
   </div>
 </template>
 
@@ -18,6 +19,7 @@
 // import HeaderBar from "@/components/common/HeaderBar";
 // import SideNavigation from "@/components/common/SideNavigation";
 // import Notification from "@/components/common/Notification";
+import FooterBar from "@/components/common/FooterBar";
 
 export default {
   name: 'Main',
@@ -25,10 +27,10 @@ export default {
     // HeaderBar,
     // SideNavigation,
     // Notification,
+    FooterBar,
   },
   data: function () {
     return {
-      drawer: null
     }
   },
   created() {

@@ -1,17 +1,7 @@
 <template>
   <v-container>
-    <v-app-bar app elevation="1" color="primary" dark>
-      <v-btn
-          class="ma-n3"
-          color="white"
-          @click="returnList()"
-          text
-          fab
-      >
-        <v-icon>mdi-arrow-left-bold</v-icon>
-      </v-btn>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
-    </v-app-bar>
+    <header-bar v-bind:title="title"/>
+
     <br>
     <v-form
         ref="form"
@@ -52,9 +42,13 @@
 <script>
 import {addDoc, collection} from "firebase/firestore/lite";
 import firebase from "@/firebase/firebase";
+import HeaderBar from "@/components/common/HeaderBar";
 
 export default {
   name: "New",
+  components: {
+    HeaderBar,
+  },
   data () {
     return {
       title: '新規',
