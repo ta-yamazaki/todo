@@ -40,6 +40,14 @@
       >
         更新
       </v-btn>
+      <v-btn
+          @click="back"
+          class="ml-3"
+          elevation="0"
+          type= "button"
+      >
+        戻る
+      </v-btn>
 
     </v-form>
   </v-container>
@@ -109,7 +117,7 @@ export default {
 
       this.loading = false;
     },
-    returnList() {
+    back() {
       this.$router.back();
       // this.$router.push({ name: "List" });
     }

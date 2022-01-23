@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pa-0">
     <header-bar v-bind:title="title"/>
 
     <v-list>
