@@ -70,8 +70,8 @@
 
 <script>
 import firebase from "@/firebase/firebase";
-import {collection, deleteDoc, doc, getDocs, updateDoc, query, where} from "firebase/firestore/lite";
 import Firebase from "@/firebase/firebase";
+import {collection, getDocs, query, where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
 
 export default {
