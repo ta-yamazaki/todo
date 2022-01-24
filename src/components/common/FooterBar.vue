@@ -2,6 +2,7 @@
   <v-footer
       padless
       fixed
+      app
   >
     <v-btn
         large
