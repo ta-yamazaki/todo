@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
-import Login from '@/Login.vue'
-import Main from "@/Main.vue";
+import Login from '@/views/auth/Login.vue'
+import PasswordReset from '@/views/auth/PasswordReset.vue'
+import Main from "@/views/Main.vue";
 import List from "@/views/todo/List";
 
 Vue.use(VueRouter)
@@ -12,6 +13,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/login', name: 'Login', component: Login },
+    { path: '/password/reset', name: 'PasswordReset', component: PasswordReset },
     { path: '/', component: Main,
       children: [
         { path: '/', name: 'List', component: List, meta: { requiresAuth: true } },

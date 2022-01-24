@@ -26,6 +26,11 @@
                             :rules="[ v => !!v ]"
               ></v-text-field>
 
+              <router-link :to="{ name: 'PasswordReset' }"
+                           target='PasswordReset'>
+                パスワードをお忘れですか？
+              </router-link>
+
               <p style="color: orangered">{{ errorMessage }}</p>
               <v-btn
                   :disabled="!valid || loading"
@@ -79,6 +84,7 @@ export default {
             this.$router.push(redirectPath);
           })
           .catch(() => {
+            alert("aaaaaaa")
             setTimeout(() => {
               this.loading = false;
               this.errorMessage = "メールアドレスとパスワードを確認してください";

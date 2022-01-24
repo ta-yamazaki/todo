@@ -3,25 +3,22 @@ import firebaseConfig from './firebaseConfig.js'
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 import * as Firestore from 'firebase/firestore/lite';
-import * as FirestoreRealtime from 'firebase/firestore';
 import * as Auth from "firebase/auth";
 import store from '@/plugins/store'
 
 const app = initializeApp(firebaseConfig); // Initialize Firebase
 
 const db = Firestore.getFirestore(app);
-const realtime_db = FirestoreRealtime.getFirestore(app);
 const auth = Auth.getAuth(app);
 
 const hostName = document.location.hostname;
 if( hostName === "localhost" ){
     //エミュレータを利用するように記述
     Firestore.connectFirestoreEmulator(db, 'localhost', 8080);
-    FirestoreRealtime.connectFirestoreEmulator(realtime_db, 'localhost', 8080);
     Auth.connectAuthEmulator(auth, 'http://localhost:9099')
 }
 
-const login = function(email, password) {
+function login(email, password) {
     return Auth.setPersistence(auth, Auth.browserSessionPersistence)
         .then(() => {
             console.log("ログインしました。");
@@ -33,7 +30,7 @@ const login = function(email, password) {
         });
 }
 
-const logout = function() {
+function logout() {
     Auth.signOut(auth)
         .then(() => {
             console.log("ログアウトしました。");
@@ -43,13 +40,18 @@ const logout = function() {
         });
 }
 
-const onAuth = function() {
+function onAuth() {
     Auth.onAuthStateChanged(auth, (user) => {
         store.commit('onAuthStateChanged', user);
     });
 }
 
+function passwordReset(email) {
+    return Auth.sendPasswordResetEmail(auth, email);
+}
+
 export default {
-    db, realtime_db,
-    login, logout, onAuth
+    db,
+    login, logout, onAuth,
+    passwordReset
 };
