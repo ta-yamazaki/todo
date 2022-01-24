@@ -55,34 +55,6 @@
       </v-list-item-group>
     </v-list>
 
-    <v-dialog v-model="dialogDone" max-width="500px">
-      <v-card>
-        <v-card-title class="text-h5">このTODOのステータスを完了にします。</v-card-title>
-        <v-divider></v-divider>
-        <v-card-title class="text-h6">{{todoToBeDone.name}}</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="" text @click="closeDelete">キャンセル</v-btn>
-          <v-btn color="primary" text @click="todoDone">OK</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="dialogDelete" max-width="500px">
-      <v-card>
-        <v-card-title class="text-h5">削除してよろしいですか？</v-card-title>
-        <v-divider></v-divider>
-        <v-card-title class="text-h6">{{todoToBeDeleted.name}}</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="" text @click="closeDelete">キャンセル</v-btn>
-          <v-btn color="red darken-1" text @click="deleteTodo">OK</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-footer fixed color="transparent" class="pr-5 pb-16 mb-3">
       <v-spacer></v-spacer>
       <v-btn
@@ -110,20 +82,10 @@ export default {
   data () {
     return {
       title: 'TODO',
-      search: '',
       todos: {
         ざ: [],
         さ: [],
         未定: [],
-      },
-      selectedTodo: null,
-      dialogDone: false,
-      todoToBeDone: {
-        name: "",
-      },
-      dialogDelete: false,
-      todoToBeDeleted: {
-        name: "",
       },
       db: null,
     }
@@ -147,56 +109,6 @@ export default {
         }
         this.todos[assigned].push(todoData)
       }, this.todos);
-    },
-    showDoneDialog(todo) {
-      this.editedIndex = this.todos.indexOf(todo);
-      this.todoToBeDone = todo;
-      this.dialogDone = true;
-    },
-    todoDone() {
-      let id = this.todoToBeDone.id;
-      updateDoc(doc(this.db, "todos", id), {
-        status: "完",
-      }).then(() => {
-        alert("更新しました。");
-      }).catch((e) => {
-        alert("失敗しました。");
-        console.log(e);
-      });
-
-      this.todos.splice(this.editedIndex, 1);
-      this.closeDone();
-    },
-    showDeleteDialog(todo) {
-      this.editedIndex = this.todos.indexOf(todo);
-      this.todoToBeDeleted = todo;
-      this.dialogDelete = true;
-    },
-    deleteTodo() {
-      let id = this.todoToBeDeleted.id;
-      deleteDoc(doc(this.db, "todos", id))
-          .then(() => {
-            alert("削除しました。");
-          })
-          .catch((e) => {
-            alert("失敗しました。");
-            console.log(e);
-          });
-
-      this.todos.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-    closeDone() {
-      this.dialogDone = false;
-      this.$nextTick(() => {
-        this.editedIndex = -1;
-      })
-    },
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedIndex = -1;
-      })
     },
     doLogout() {
       Firebase.logout();
