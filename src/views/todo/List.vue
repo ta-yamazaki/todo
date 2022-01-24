@@ -55,21 +55,23 @@
       </v-list-item-group>
     </v-list>
 
-    <v-footer fixed color="transparent" class="pr-5 pb-16 mb-3">
-      <v-spacer></v-spacer>
-      <v-btn
-          :to="{ name: 'New' }"
-          color="primary"
-          fab
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </v-footer>
+<!--    <v-footer fixed color="transparent" class="pr-5 pb-16 mb-3">-->
+<!--    </v-footer>-->
+    <v-btn
+        :to="{ name: 'New' }"
+        color="primary"
+        dark
+        absolute
+        top
+        right
+        fab
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
 <script>
-import firebase from "@/firebase/firebase";
 import Firebase from "@/firebase/firebase";
 import {collection, getDocs, query, where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
@@ -91,7 +93,7 @@ export default {
     }
   },
   created() {
-    this.db = firebase.db;
+    this.db = Firebase.db;
     this.syncContent();
   },
   methods: {
