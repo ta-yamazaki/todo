@@ -73,7 +73,7 @@ export default {
             alert("パスワードリセットに失敗しました。")
           })
           .finally(() => {
-            setTimeout(() => (this.loading = false), 1000)
+            setTimeout(() => (this.loading = false), 500)
           });
     }
   }
