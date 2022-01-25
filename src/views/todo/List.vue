@@ -59,12 +59,10 @@
 <!--    </v-footer>-->
     <v-btn
         :to="{ name: 'New' }"
-        color="primary"
-        dark
-        absolute
-        top
-        right
         fab
+        color="primary"
+        fixed bottom right
+        class="mr-3 mb-16"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -102,14 +100,11 @@ export default {
       const todosSnap = await getDocs(q);
       todosSnap.forEach((todo) => {
         let data = todo.data();
-        let assigned = data.assigned
         let todoData = {
           id: todo.id,
           name: data.name,
-          assigned: assigned,
-          status: data.status,
         }
-        this.todos[assigned].push(todoData)
+        this.todos[data.assigned].push(todoData)
       }, this.todos);
     },
     doLogout() {

@@ -22,7 +22,10 @@ const router = new VueRouter({
         { path: '/log', name: 'Log', component: () => import('@/views/log/Log'), meta: { requiresAuth: true } },
       ]
     },
-  ]
+  ],
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  }
 })
 
 router.beforeEach((to, from, next) => {
