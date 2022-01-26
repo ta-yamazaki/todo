@@ -52,15 +52,35 @@
       </v-list-item-group>
     </v-list>
 
-    <v-btn
-        :to="{ name: 'New' }"
-        fab
-        color="primary"
-        fixed bottom right
-        class="mr-3 mb-16"
+
+    <v-dialog
+        v-model="dialog"
+        max-width="600"
     >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+            color="primary" class="mr-3 mb-16"
+            fab fixed bottom right
+            v-bind="attrs" v-on="on"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
+      <new :dialog="dialog"
+           @dialogClose="dialogClose"
+           @registerToList="registerToList"
+      />
+    </v-dialog>
+
+    <v-snackbar
+        v-model="snackbar"
+        timeout="2500"
+        topb
+        color="success"
+        class="text-center"
+    >
+      登録しました。
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -68,18 +88,19 @@
 import Firebase from "@/firebase/firebase";
 import {collection, getDocs, query, where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
+import New from "@/components/todo/New";
 
 export default {
   name: "List",
-  components: {
-    HeaderBar,
-  },
+  components: {HeaderBar, New,},
   data () {
     return {
       title: 'TODO',
       todos_ざ: [],
       todos_さ: [],
       todos_未定: [],
+      dialog: false,
+      snackbar: false,
       db: null,
     }
   },
@@ -98,10 +119,21 @@ export default {
           name: data.name,
         }
         let assigned = data.assigned;
-        if (assigned === "ざ") this.todos_ざ.push(todoData)
-        if (assigned === "さ") this.todos_さ.push(todoData)
-        if (assigned === "未定") this.todos_未定.push(todoData)
+        if (assigned === "ざ") this.todos_ざ.push(todoData);
+        if (assigned === "さ") this.todos_さ.push(todoData);
+        if (assigned === "未定") this.todos_未定.push(todoData);
       });
+    },
+    registerToList(newTodo) {
+      let assigned = newTodo.assigned;
+      if (assigned === "ざ") this.todos_ざ.push(newTodo);
+      if (assigned === "さ") this.todos_さ.push(newTodo);
+      if (assigned === "未定") this.todos_未定.push(newTodo);
+      this.dialogClose();
+      this.snackbar = true;
+    },
+    dialogClose() {
+      this.dialog = false;
     },
     doLogout() {
       Firebase.logout();

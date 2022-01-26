@@ -18,7 +18,7 @@ const router = new VueRouter({
       children: [
         { path: '/', name: 'List', component: List, meta: { requiresAuth: true } },
         { path: '/detail/:id', name: 'Detail', component: () => import('@/views/todo/Detail'), meta: { requiresAuth: true } },
-        { path: '/new', name: 'New', component: () => import('@/views/todo/New'), meta: { requiresAuth: true } },
+        { path: '/new', name: 'New', component: () => import('@/components/todo/New'), meta: { requiresAuth: true } },
         { path: '/log', name: 'Log', component: () => import('@/views/log/Log'), meta: { requiresAuth: true } },
       ]
     },

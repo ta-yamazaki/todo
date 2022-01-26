@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-app-bar app elevation="1" color="primary" dark>
+    <v-app-bar app elevation="1" color="primary" dark dense>
       <v-toolbar-title href="/">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
