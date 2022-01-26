@@ -79,6 +79,9 @@ export default {
 
       Firebase.login(this.email, this.password)
           .then(() => {
+            console.log("ログインしました。");
+            Firebase.registerLog("ログインしました。", "ログイン");
+
             let redirectPath = this.$route.query.redirect;
             if (typeof redirectPath === 'undefined') redirectPath = "/";
             this.$router.push(redirectPath);

@@ -21,7 +21,6 @@ if( hostName === "localhost" ){
 function login(email, password) {
     return Auth.setPersistence(auth, Auth.browserSessionPersistence)
         .then(() => {
-            console.log("ログインしました。");
             return Auth.signInWithEmailAndPassword(auth, email, password);
         })
         .catch((error) => {
@@ -50,8 +49,24 @@ function passwordReset(email) {
     return Auth.sendPasswordResetEmail(auth, email);
 }
 
+function registerLog(log, type) {
+    Auth.onAuthStateChanged(auth, () => {
+        let logData = {
+            createdAt: new Date(),
+            type: type,
+            log: log,
+        };
+
+        let logsCollection = Firestore.collection(this.db, "logs");
+        Firestore.addDoc(logsCollection, logData)
+            .then(() => {})
+            .catch((e) => { console.log(e); });
+    });
+}
+
 export default {
     db,
     login, logout, onAuth,
-    passwordReset
+    passwordReset,
+    registerLog
 };

@@ -51,6 +51,7 @@
 import {addDoc, collection} from "firebase/firestore/lite";
 import firebase from "@/firebase/firebase";
 import HeaderBar from "@/components/common/HeaderBar";
+import Firebase from "@/firebase/firebase";
 
 export default {
   name: "New",
@@ -87,6 +88,7 @@ export default {
         status: "未",
       }).then(() => {
         alert("登録しました。");
+        Firebase.registerLog(this.todoToString(), "TODO登録");
         this.$router.back();
       }).catch((e) => {
         console.log(e);
@@ -98,6 +100,9 @@ export default {
     back() {
       this.$router.back();
       // this.$router.push({ name: "List" });
+    },
+    todoToString() {
+      return "[担当] " + this.assigned + ",　[やること] " + this.name;
     }
   },
 }

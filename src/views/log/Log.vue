@@ -1,30 +1,38 @@
 <template>
   <v-container class="pa-0">
     <header-bar v-bind:title="title"/>
-
-    <v-list>
-      <v-list-item-group>
-        <v-list-item
-            v-for="log in logs"
-            :key="log.id"
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ log.log }}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+    <span style="font-size: small">※直近10件</span>
+    <v-simple-table dense>
+      <template v-slot:default>
+        <thead>
+        <tr>
+          <th class="text-left">time</th>
+          <th class="text-left">user</th>
+          <th class="text-left">type</th>
+          <th class="text-left"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="log in logs"
+            :key="log.id">
+          <td>{{ log.createdAt }}</td>
+          <td>{{ log.user }}</td>
+          <td>{{ log.type }}</td>
+          <td>{{ log.log }}</td>
+        </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
 
   </v-container>
 </template>
 
 <script>
 import Firebase from "@/firebase/firebase";
-import {collection, getDocs, query, orderBy, limit} from "firebase/firestore/lite";
+import {collection, getDocs, limit, orderBy, query} from "firebase/firestore/lite";
 // import {where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
+import moment from "moment";
 
 export default {
   name: "List",
@@ -34,7 +42,7 @@ export default {
   data () {
     return {
       title: 'ログ',
-      logs: {},
+      logs: [],
       db: null,
     }
   },
@@ -51,20 +59,20 @@ export default {
           limit(10),
       );
       const logsSnap = await getDocs(q);
-      logsSnap.forEach((log) => {
+      logsSnap.forEach(async (log) => {
         let data = log.data();
-        let assigned = data.assigned
         let logData = {
           id: log.id,
-          createdAt: data.createdAt,
+          createdAt: this.datetimeFormat(data.createdAt),
           type: data.type,
           user: data.user,
           log: data.log,
-          assigned: assigned,
-          status: data.status,
         }
         this.logs.push(logData)
       }, this.logs);
+    },
+    datetimeFormat(timestamp) {
+      return moment.unix(timestamp.seconds).format("YYYY-MM-DD HH:mm:ss");
     },
     doLogout() {
       Firebase.logout();

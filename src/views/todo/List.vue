@@ -4,13 +4,10 @@
 
     <v-list>
 
-<!--      <template v-slot:activator>-->
-<!--        <v-list-item-title>ざ</v-list-item-title>-->
-<!--      </template>-->
       <v-subheader style="background-color: #f3faff">ざ</v-subheader>
       <v-list-item-group>
         <v-list-item
-            v-for="todo in todos.ざ"
+            v-for="todo in todos_ざ"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
         >
@@ -26,7 +23,7 @@
       <v-subheader style="background-color: #fffaff">さ</v-subheader>
       <v-list-item-group>
         <v-list-item
-            v-for="todo in todos.さ"
+            v-for="todo in todos_さ"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
         >
@@ -42,7 +39,7 @@
       <v-subheader style="background-color: whitesmoke">未定</v-subheader>
       <v-list-item-group>
         <v-list-item
-            v-for="todo in todos.未定"
+            v-for="todo in todos_未定"
             :key="todo.id"
             :to="{ name: 'Detail', params: { id: todo.id } }"
         >
@@ -55,8 +52,6 @@
       </v-list-item-group>
     </v-list>
 
-<!--    <v-footer fixed color="transparent" class="pr-5 pb-16 mb-3">-->
-<!--    </v-footer>-->
     <v-btn
         :to="{ name: 'New' }"
         fab
@@ -82,11 +77,9 @@ export default {
   data () {
     return {
       title: 'TODO',
-      todos: {
-        ざ: [],
-        さ: [],
-        未定: [],
-      },
+      todos_ざ: [],
+      todos_さ: [],
+      todos_未定: [],
       db: null,
     }
   },
@@ -104,8 +97,11 @@ export default {
           id: todo.id,
           name: data.name,
         }
-        this.todos[data.assigned].push(todoData)
-      }, this.todos);
+        let assigned = data.assigned;
+        if (assigned === "ざ") this.todos_ざ.push(todoData)
+        if (assigned === "さ") this.todos_さ.push(todoData)
+        if (assigned === "未定") this.todos_未定.push(todoData)
+      });
     },
     doLogout() {
       Firebase.logout();

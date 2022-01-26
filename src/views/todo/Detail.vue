@@ -57,6 +57,7 @@
 import {updateDoc, doc, getDoc} from "firebase/firestore/lite";
 import firebase from "@/firebase/firebase";
 import HeaderBar from "@/components/common/HeaderBar";
+import Firebase from "@/firebase/firebase";
 
 export default {
   name: "Detail",
@@ -109,6 +110,7 @@ export default {
         status: this.status,
       }).then(() => {
         alert("更新しました。");
+        Firebase.registerLog(this.todoToString(), "TODO更新");
         this.$router.back();
       }).catch((e) => {
         console.log(e);
@@ -120,6 +122,9 @@ export default {
     back() {
       this.$router.back();
       // this.$router.push({ name: "List" });
+    },
+    todoToString() {
+      return "[担当] " + this.assigned + ",　[ステータス] " + this.status + ",　[やること] " + this.name;
     }
   },
 }
