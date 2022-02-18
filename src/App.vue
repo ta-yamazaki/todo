@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Firebase from "@/firebase/firebase";
+import {onAuth} from "@/firebase/firebase";
 
 export default {
   name: 'App',
@@ -16,7 +16,7 @@ export default {
     }
   },
   created() {
-    Firebase.onAuth();
+    onAuth();
   }
 };
 </script>

@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 import Login from '@/views/auth/Login.vue'
-import PasswordReset from '@/views/auth/PasswordReset.vue'
 import Main from "@/views/Main.vue";
 import List from "@/views/todo/List";
 
@@ -13,13 +12,13 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/login', name: 'Login', component: Login },
-    { path: '/password/reset', name: 'PasswordReset', component: PasswordReset },
+    { path: '/password/reset', name: 'PasswordReset', component: () => import(/* webpackChunkName: "password-reset" */ '@/views/auth/PasswordReset') },
     { path: '/', component: Main,
       children: [
         { path: '/', name: 'List', component: List, meta: { requiresAuth: true } },
-        { path: '/detail/:id', name: 'Detail', component: () => import('@/views/todo/Detail'), meta: { requiresAuth: true } },
-        { path: '/new', name: 'New', component: () => import('@/components/todo/New'), meta: { requiresAuth: true } },
-        { path: '/log', name: 'Log', component: () => import('@/views/log/Log'), meta: { requiresAuth: true } },
+        { path: '/detail/:id', name: 'Detail', component: () => import(/* webpackChunkName: "detail" */ '@/views/todo/Detail'), meta: { requiresAuth: true } },
+        { path: '/new', name: 'New', component: () => import(/* webpackChunkName: "new" */ '@/components/todo/New'), meta: { requiresAuth: true } },
+        { path: '/log', name: 'Log', component: () => import(/* webpackChunkName: "log" */ '@/views/log/Log'), meta: { requiresAuth: true } },
       ]
     },
   ],

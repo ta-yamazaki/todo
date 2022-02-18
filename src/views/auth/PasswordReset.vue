@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import Firebase from '@/firebase/firebase.js'
+import {passwordReset} from '@/firebase/firebase.js'
 
 export default {
   name: "Login",
@@ -65,7 +65,7 @@ export default {
 
       this.loading = true;
 
-      Firebase.passwordReset(this.email)
+      passwordReset(this.email)
           .then(() => {
             alert("パスワードリセットのメールを送りました。")
           })

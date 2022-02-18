@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Firebase from '@/firebase/firebase.js'
+import {login, registerLog} from '@/firebase/firebase.js'
 
 export default {
   name: "Login",
@@ -77,10 +77,10 @@ export default {
 
       this.loading = true;
 
-      Firebase.login(this.email, this.password)
+      login(this.email, this.password)
           .then(() => {
             console.log("ログインしました。");
-            Firebase.registerLog("ログインしました。", "ログイン");
+            registerLog("ログインしました。", "ログイン");
 
             let redirectPath = this.$route.query.redirect;
             if (typeof redirectPath === 'undefined') redirectPath = "/";

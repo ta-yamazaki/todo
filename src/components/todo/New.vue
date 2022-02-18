@@ -97,9 +97,11 @@ export default {
       }).catch((e) => {
         console.log(e);
         alert("失敗しました。");
+      }).finally(() => {
+        this.$refs.form.reset();
+        this.loading = false;
       });
 
-      this.loading = false;
     },
     back() {
       this.$router.back();

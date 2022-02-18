@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
     "firebase": "^9.6.3",
-    "moment": "^2.29.1",
+    "dayjs": "^1.10.7",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",
@@ -28,8 +27,10 @@
     "sass": "^1.32.13",
     "sass-loader": "^10.2.0",
     "vue-cli-plugin-vuetify": "~2.4.5",
+    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.3",
+    "webpack": "^4.46.0"
   },
   "eslintConfig": {
     "root": true,

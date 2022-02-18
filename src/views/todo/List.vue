@@ -75,7 +75,7 @@
     <v-snackbar
         v-model="snackbar"
         timeout="2500"
-        topb
+        top
         color="success"
         class="text-center"
     >

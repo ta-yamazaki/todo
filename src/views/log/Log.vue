@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import Firebase from "@/firebase/firebase";
+import {db, logout} from "@/firebase/firebase";
 import {collection, getDocs, limit, orderBy, query} from "firebase/firestore/lite";
 // import {where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
-import moment from "moment";
+import dayjs from "dayjs"
 
 export default {
   name: "List",
@@ -47,7 +47,7 @@ export default {
     }
   },
   created() {
-    this.db = Firebase.db;
+    this.db = db;
     this.syncContent();
   },
   methods: {
@@ -72,10 +72,10 @@ export default {
       }, this.logs);
     },
     datetimeFormat(timestamp) {
-      return moment.unix(timestamp.seconds).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs.unix(timestamp.seconds).format("YYYY-MM-DD HH:mm:ss");
     },
     doLogout() {
-      Firebase.logout();
+      logout();
     }
   }
 }
