@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {db, logout} from "@/firebase/firebase";
+import db from "@/firebase/firestore";
 import {collection, getDocs, limit, orderBy, query} from "firebase/firestore/lite";
 // import {where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
@@ -74,9 +74,6 @@ export default {
     datetimeFormat(timestamp) {
       return dayjs.unix(timestamp.seconds).format("YYYY-MM-DD HH:mm:ss");
     },
-    doLogout() {
-      logout();
-    }
   }
 }
 </script>

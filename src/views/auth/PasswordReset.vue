@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {passwordReset} from '@/firebase/firebase.js'
+import {passwordReset} from '@/firebase/auth'
 
 export default {
   name: "Login",

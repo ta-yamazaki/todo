@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Firebase from "@/firebase/firebase";
+import {logout} from "@/firebase/auth";
 
 export default {
   name: "Header",
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     doLogout() {
-      Firebase.logout();
+      logout();
     }
   },
   computed: {

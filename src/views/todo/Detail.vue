@@ -55,9 +55,8 @@
 
 <script>
 import {updateDoc, doc, getDoc} from "firebase/firestore/lite";
-import firebase from "@/firebase/firebase";
+import db from "@/firebase/firestore";
 import HeaderBar from "@/components/common/HeaderBar";
-import Firebase from "@/firebase/firebase";
 
 export default {
   name: "Detail",
@@ -77,7 +76,7 @@ export default {
     }
   },
   created() {
-    this.db = firebase.db;
+    this.db = db;
     this.getUser();
   },
   methods: {
@@ -110,7 +109,6 @@ export default {
         status: this.status,
       }).then(() => {
         alert("更新しました。");
-        Firebase.registerLog(this.todoToString(), "TODO更新");
         this.$router.back();
       }).catch((e) => {
         console.log(e);

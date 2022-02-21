@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {onAuth} from "@/firebase/firebase";
+import {onAuth} from "@/firebase/auth";
 
 export default {
   name: 'App',

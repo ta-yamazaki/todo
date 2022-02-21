@@ -49,6 +49,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item></v-list-item>
       </v-list-item-group>
     </v-list>
 
@@ -85,7 +86,7 @@
 </template>
 
 <script>
-import Firebase from "@/firebase/firebase";
+import db from "@/firebase/firestore";
 import {collection, getDocs, query, where} from "firebase/firestore/lite";
 import HeaderBar from "@/components/common/HeaderBar";
 import New from "@/components/todo/New";
@@ -105,7 +106,7 @@ export default {
     }
   },
   created() {
-    this.db = Firebase.db;
+    this.db = db;
     this.syncContent();
   },
   methods: {
@@ -135,9 +136,6 @@ export default {
     dialogClose() {
       this.dialog = false;
     },
-    doLogout() {
-      Firebase.logout();
-    }
   }
 }
 </script>

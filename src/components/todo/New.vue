@@ -53,7 +53,7 @@
 
 <script>
 import {addDoc, collection} from "firebase/firestore/lite";
-import Firebase from "@/firebase/firebase";
+import db from "@/firebase/firestore";
 
 export default {
   name: "New",
@@ -70,7 +70,7 @@ export default {
     }
   },
   created() {
-    this.db = Firebase.db;
+    this.db = db;
   },
   methods: {
     async syncContent() {
@@ -90,7 +90,6 @@ export default {
       };
 
       addDoc(collection(this.db, "todos"), newTodo).then((doc) => {
-        Firebase.registerLog(this.todoToString(), "TODO登録");
         newTodo.id = doc.id;
         this.$emit("registerToList", newTodo);
         this.clearForm();

@@ -3,11 +3,5 @@ module.exports = {
     'vuetify'
   ],
   configureWebpack: {
-    optimization: {
-      chunkIds: 'named',
-      splitChunks: {
-        chunks: 'all',
-      },
-    }
   },
 }
